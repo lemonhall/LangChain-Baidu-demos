@@ -1,3 +1,18 @@
+
+0、所有的代码说明：
+
+      chat_with_chroma_rag.py   使用chromedb作为rag的输入源RAG应用的例子，自带一个数据库管理界面
+      chat_with_faiss_rag.py    使用cfaiss作为rag的输入源RAG应用的例子
+      chroma_gui.py             chromadb的管理界面
+      main.py                   nicegui自带的例子，移植到了百度的大模型
+      rag.py                    rag的最初步的例子，纯console界面
+      regex.py                  langchain的最重要的agent的返回的parser核心逻辑里的那个regex的测试用例
+      search_agent.py           langchain对应ddg_search的agent的例子
+      sql_agent.py              langchain的sql agent的例子
+
+
+1、启动一个可交互的聊天界面
+
 https://github.com/zauberzeug/nicegui/tree/main/examples/chat_with_ai
 
 sudo docker run -it --restart always -p 1280:8080 -e PUID=$(id -u) -e PGID=$(id -g) -v $(pwd)/:/app/ zauberzeug/nicegui:latest
@@ -43,15 +58,16 @@ sudo systemctl reload nginx
            
 这三句是专门用来伺候：
 
-Based on the most recent Observation, we still have not received the actual result of the query. 
-Let's check if there was an error executing the query.
-Action: sql_db_query
-Action Input:
-```sql
-SELECT * FROM notes LIMIT 1;
-```
-Observation:
-这种SQL输出的，反正LLM的输出前期百怪
+            Based on the most recent Observation, we still have not received the actual result of the query. 
+            Let's check if there was an error executing the query.
+            Action: sql_db_query
+            Action Input:
+            ```sql
+            SELECT * FROM notes LIMIT 1;
+            ```
+            Observation:
+
+这种SQL输出的，反正LLM的输出千奇百怪
 
 第五：其实这个if-else的结构就是这样来解释
 
@@ -59,7 +75,7 @@ Observation:
 
 如果答案里有Answer，同时没有Aciton，那就输出最后结果，这整个过程就结束了
 
-includes_answer = FINAL_ANSWER_ACTION in text
+        includes_answer = FINAL_ANSWER_ACTION in text
         regex = (
             r"Action\s*\d*\s*:[\s]*(.*?)[\s]*Action\s*\d*\s*Input\s*\d*\s*:\s*(.*?)Observation"
         )
